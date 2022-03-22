@@ -1,0 +1,51 @@
+.effectcrd {
+    display: block;  
+    top: 0px;
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    padding: 32px 24px;
+    margin: 12px;
+    text-decoration: none;
+    color:#fa854e;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 3px solid #fa854e;
+  }
+  .effectcrd:hover {
+    -webkit-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    box-shadow: 0px 5px 10px rgba(38, 38, 38, 0.2);
+    top: -4px;
+    border: 1px solid #fa854e;
+    background-color: #d6a074;
+    color:#ffffff;
+  }
+  .effectcrd:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    /* background: #00838d; */
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+    -webkit-transition: -webkit-transform 0.15s ease-out;
+    transition: -webkit-transform 0.15s ease-out;
+    transition: transform 0.15s ease-out;
+    transition: transform 0.15s ease-out, -webkit-transform 0.15s ease-out;
+  }
+  .effectcrd:hover:before {
+    -webkit-transform: scale(2.15);
+            transform: scale(2.15);
+  }
+
+  /* .bc{
+    background-color: #fa854e;
+  } */
+

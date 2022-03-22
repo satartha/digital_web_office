@@ -1,0 +1,21 @@
+table thead {
+    justify-content: center;
+    text-align: center;
+}
+.card {
+    box-shadow: 0px 0px 20px 1px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.card .card-header {
+    margin-bottom: 20px;
+    border-top-left-radius: 20px;
+    background-color:#ff4f00;
+    padding: 15px;
+}
+.card .card-header strong {
+    color: #fff;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
