@@ -31,6 +31,25 @@ class Workflow extends CI_Controller
 		}
     }
 
+	public function wf_str()
+	{
+		try {
+			if (isset($this->session->dflogin) || (isset($this->session->dflogin_staff) && $this->session->dflogin_staff['usertypeid']=='1'))
+			{
+				$this->load->view('include/header');
+		        $this->load->view('include/topbar');
+				$this->load->view('wf_htr/workflow_history');
+				$this->load->view('include/footer');
+				$this->load->view('wf_htr/workflow_historyScript');
+
+			}else{
+				redirect('Welcome/');
+			}
+		} catch (Exception $e) {
+			echo "Message:" . $e->getMessage();
+		}
+	}
+
 
 
 
@@ -970,7 +989,7 @@ class Workflow extends CI_Controller
 						$where="isactive=1 and id=".$work_assign[0]->dwaid;
                         $workflow=$this->Model_Db->select(11,null,$where);
 
-
+						
 
 						$data['doc_wf_ind']['workflow']=$workflow[0];
 						$data['doc_wf_ind']['workflow_assign']=$work_assign[0];
@@ -1012,6 +1031,190 @@ class Workflow extends CI_Controller
         }
 
 	}
+
+
+
+
+
+	public function get_wf_dtl_ind()
+	{
+		try{
+			if ( isset($this->session->dflogin) || (isset($this->session->dflogin_staff) && $this->session->dflogin_staff['usertypeid']=='1' )) 
+			{
+					$data=array();
+					
+					$status=true;
+
+					// if (isset($this->session->workflow_id)) 
+					// {
+					// 	$wfid=$this->session->workflow_id;
+					// }
+
+					$wfid="12";
+				    
+					if (isset($wfid) && is_numeric($wfid) && $wfid>0) 
+					{
+						
+					} else {
+						$data['data']="Invalid Workflow id";
+						$status=false;
+					}
+
+
+
+					if ($status) 
+					{
+						
+						
+
+						$where="isactive=1 and dwaid=$wfid";
+						$work_htr_data=$this->Model_Db->select(16,null,$where);
+
+						
+                        
+						// echo "<pre>";
+						// print_r($ind_wf_dtl);
+						// exit();
+						
+						
+
+                        
+						$where="isactive=1 and id=$wfid";
+                        $work_assign=$this->Model_Db->select(15,null,$where);
+
+						
+						
+						$where="isactive=1 and id=".$work_assign[0]->workflowid;
+						
+                        $workflow=$this->Model_Db->select(11,null,$where);
+
+						$where="isactive=1 and id=".$work_assign[0]->documentid;
+						
+                        $document=$this->Model_Db->select(8,null,$where);
+
+						$data['doc_dtl']=$document[0];
+
+
+
+						$data['doc_wf_ind']['workflow']=$workflow[0];
+						$data['doc_wf_ind']['workflow_assign']=$work_assign[0];
+                        
+						if ($work_htr_data) 
+						{
+							$count=0;
+						    $wf_apr=0;
+							$completed=0;
+							$rj=0;
+									foreach ($work_htr_data as $key => $value) 
+								{
+									$data['workflow_data'][]=$value;
+									$count++;
+									if ($value->iscomplete=="1" ) {
+										$completed++;
+									}
+									if ($value->isapproved=="1") 
+									{
+										$wf_apr++;
+									}
+									if ($value->isapproved=="0" && $value->iscomplete=="1") 
+									{
+										$rj++;
+									}
+
+								}
+								if ($count==$completed && $wf_apr==$completed) 
+								{
+									$data['wf_status']="Approved";
+								} elseif($count==$completed && $wf_apr!=$completed){
+									$data['wf_status']="Rejected";
+								}elseif($count!=$completed){
+									$data['wf_status']="Pending";
+								}
+								elseif($rj>0)
+								{
+									$data['wf_status']="Rejected";
+								}
+								
+								
+								$data['status']=true;
+							
+						}else{
+						$data['status']=false;
+						$data['message']="No Workflow History Found";
+						$data['data']="No Workflow History Found";
+						}
+
+						foreach ($data['workflow_data'] as $key => $value) 
+						{
+							$id=$value->assignedto;
+							$where="isactive=1 and id=".$id;
+						    $staff=$this->Model_Db->select(5,null,$where);
+
+							if ($staff) 
+							{
+								$data['staff_name'][]=$staff[0]->staffname;
+							}else{
+								$data['staff_name'][]=false;
+							}
+
+						}
+	
+					} else {
+
+						$data['message']="Somethind Gone Wrong";
+						$data['status']=false;
+
+					}
+
+				    echo json_encode($data);
+					exit();
+			
+            }else{
+                redirect('Welcome/');
+            }
+        } catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+            $data['status'] = false;
+            $data['error'] = true;
+            echo json_encode($data);
+        }
+	}
+
+	public function get_wf_dtl()
+	{
+		try{
+			if ((isset($this->session->dflogin_staff) && $this->session->dflogin_staff['usertypeid']=='1' ) || isset($this->session->dflogin)) 
+			{ 
+				$wf_id=base64_decode($_GET['I']);
+
+				if ($this->session->workflow_id) {
+					$this->session->unset_userdata("workflow_id");
+				}
+				$this->session->set_userdata('workflow_id',$wf_id);
+
+				$this->load->view('include/header');
+			    $this->load->view('wf_htr/workflow_hst_dtl');
+				$this->load->view('include/footer');
+				$this->load->view('wf_htr/workflow_hst_dtlScript');
+				
+                
+
+
+            }else{
+                redirect('Welcome/');
+            }
+        } catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+            $data['status'] = false;
+            $data['error'] = true;
+            echo json_encode($data);
+        }
+	}
+
+
+	  
+
+
 
 
 	public function ind_wf_dtl()
@@ -1187,6 +1390,57 @@ class Workflow extends CI_Controller
 								foreach ($work_htr_data as $key => $value) 
 							{
 								$data['workflow_history'][]=$value;
+
+								$doc_id=$value->documentid;
+                                $where="isactive=1 and id=$doc_id";
+								$doc_dtl=$this->Model_Db->select(8,null,$where);
+								$data['doc_dtl'][]=$doc_dtl[0];
+								  
+								$wfid=$value->id;
+
+								$where="isactive=1 and dwaid=$wfid";
+								$work_htr_data=$this->Model_Db->select(16,null,$where);
+                                
+								if ($work_htr_data) 
+								{
+
+									$count=0;
+						    $wf_apr=0;
+							$completed=0;
+							$rj=0;
+									foreach ($work_htr_data as $k => $v) 
+								{
+									
+									$count++;
+									if ($v->iscomplete=="1" ) {
+										$completed++;
+									}
+									if ($v->isapproved=="1") 
+									{
+										$wf_apr++;
+									}
+									if ($v->isapproved=="0" && $v->iscomplete=="1") 
+									{
+										$rj++;
+									}
+
+								}
+								if ($count==$completed && $wf_apr==$completed) 
+								{
+									$data['wf_status'][]="Approved";
+								} elseif($count==$completed && $wf_apr!=$completed){
+									$data['wf_status'][]="Rejected";
+								}elseif($count!=$completed){
+									$data['wf_status'][]="Pending";
+								}
+								elseif($rj>0){
+									$data['wf_status'][]="Rejected";
+								}
+                                
+								}
+
+
+
 							}
 							$data['status']=true;
 						
@@ -1209,6 +1463,9 @@ class Workflow extends CI_Controller
             echo json_encode($data);
         }
 	}
+
+
+
 
 
 	public function get_doc_wfdtl()

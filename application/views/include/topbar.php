@@ -113,6 +113,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <input class="head_search mr-3" type="search" placeholder="Search">
 				<a class="mr-3 text-white" href="#">Calender</a>
 				<a class="mr-3 text-white" href="#">Help</a>
+
+        <?php
+           
+           if (isset($this->session->dflogin) || (isset($this->session->dflogin_staff) && $this->session->dflogin_staff['usertypeid']=='1'))
+            {
+             ?>
+
+<a class="mr-3 text-white" href="<?php echo base_url('Workflow/wf_str'); ?>">Workflow History</a>
+
+             <?php
+
+            }
+        
+        ?>
+        
             </div>
             <ul class="navbar-nav navbar-nav-right">
 				<li id="CurrentTime" class="mdi mdi-timer"></li>

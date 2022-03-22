@@ -213,6 +213,7 @@
 		var dt=$(this).val();
 		dt=dt.trim();
 		$("#as_ul").html("");
+		$("#as_div").show();
 		if (dt!="") 
 		{
 			$.ajax({
@@ -223,7 +224,7 @@
                 success:function (f){
                     if(f.status){
 					
-                        $("#as_div").attr("display:block");
+                        
 						$("#as_div").fadeIn();
 						
 					    
@@ -272,12 +273,10 @@
 		}
 	})
 
-
 	
-
 	function get_dtl(id)
 	{
-		$("#as_ul").fadeOut();
+		$("#as_div").hide();
 			$.ajax({
                 type:'post',
                 url:"<?=base_url('Workflow/get_ind_staff')?>",

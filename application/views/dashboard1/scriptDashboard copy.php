@@ -108,7 +108,7 @@ $('#fast_upload').change(function(evt) {
 			dataType:'json',
 			success:function (f) {
 				if(f.status){
-
+                    
 					k=0;
 					m=0;
 					v=10;
@@ -163,7 +163,7 @@ $('#fast_upload').change(function(evt) {
 	
 
 
-	function getsubfolder(dname,id,v){
+	function getsubfolder(dname,id){
 		$("#up_frm").show();
 		$('.pth').val(dname);
 		$("#show").hide();
@@ -195,8 +195,8 @@ $('#fast_upload').change(function(evt) {
                         // htmldata+=`<li style='list-style-type:none;color:#ff4f00;cursor:pointer;'><i class='mdi mdi-folder-plus'></i> <span onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})">${f.data.subdir[i].subdirectory}</span>
 						// <ul id='loadsub${k}'></ul>
 						// </li>`;
-						htmldt+=`<li class="col_div"><div href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
-						<ul id='loadsub1${v}${k}'></ul></li>`;
+						htmldt+=`<li ><div class="col_div" href="#demo${id+1}" id="${id+1}"  onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						<div id="demo${id+1}" class="collapse"><ul id='loadsub1${v}${k}'></ul><div></li>`;
 					}
 					// $("#loadsub"+id).html(htmldata);
 					$("#loadsub1"+id).html(htmldt);

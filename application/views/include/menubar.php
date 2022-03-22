@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<hr class="mod_hr">
 					<div class="container collapse_div div_color">
 						
-						<div class="col_div" href="#demo" data-toggle="collapse"><i class="mdi mdi-folder"></i> <span id="com_name"></span> <i class="mdi mdi-menu-down right" style="font-size: 20px;"></i></div>
+						<div class="col_div" href="#demo" data-toggle="collapse"><i class="mdi mdi-folder"></i> <span id="com_name" class='owner_nm'></span> <i class="mdi mdi-menu-down right" style="font-size: 20px;"></i></div>
 						<div id="demo" class="collapse">
 							<!-- <ul >
 								<li>

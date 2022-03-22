@@ -58,7 +58,7 @@ class Staff_dashboard extends CI_Controller {
 				
 					$this->load->view('include/header');
 					$this->load->view('include/topbar');
-			
+			        $this->load->view('include/menubar');
 					$this->load->view('staff_dashboard/staff_dashboard');
 					$this->load->view('include/footer');
 					$this->load->view('staff_dashboard/staff_dashboardScript');
@@ -175,6 +175,15 @@ class Staff_dashboard extends CI_Controller {
 
 					if ($this->session->dflogin_staff['usertypeid']=="1") 
 					{
+                        
+                        $com_id=$this->session->dflogin_staff['entryby'];
+                        
+						$where="isactive=1 and id=$com_id";
+						$com_dtl=$this->Model_Db->select(1,null,$where);
+
+						$data['com_name']=$com_dtl[0]->companyname;
+
+
 
 						$comdept_id=$this->session->dflogin_staff['companydeptid'];
 						$data['staffname']=$this->session->dflogin_staff['staffname'];

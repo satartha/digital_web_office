@@ -148,14 +148,6 @@ function doc_aproval_dtl() {
                 
                 }
 
-
-
-
-                
-                
-
-                
-                 
                 var sts="";
                 if (f.wf_status=="Pending") 
                 {

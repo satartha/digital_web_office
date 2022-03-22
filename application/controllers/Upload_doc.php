@@ -84,6 +84,7 @@ class Upload_doc extends CI_Controller {
                       $insert[0]['fileext'] =  $uploadData['file_ext'];
                       $insert[0]['documentpath'] =  $full_path;
                       $insert[0]['entryby']=$comid;
+                      $insert[0]['owner']=$comid;
                       $insert[0]['entryat']=date("Y-m-d H:i:s");
                       $insert[0]['doctypeid']='6';
 

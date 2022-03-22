@@ -292,7 +292,7 @@ class Dashboard extends CI_Controller
 				if ($file_data) {
 
 					$file_dt = $file_data[0];
-					$d = $_SERVER['DOCUMENT_ROOT'] . "/digital_web_office/" . $file_dt->documentpath;
+					$d =  $file_dt->documentpath;
 					$dt['file_data'] = $file_dt;
 
 					if ($file_dt->documentpath) {

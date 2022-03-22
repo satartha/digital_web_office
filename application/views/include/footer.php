@@ -123,6 +123,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$('#myModal').modal('show');
 	}
 
+	$("#wf_hstry").DataTable();
+
 
 
 

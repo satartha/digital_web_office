@@ -95,7 +95,9 @@ $('#fast_upload').change(function(evt) {
 	 });
 
 	 var k=0;
+	 
 
+	
 	 function pdf_rpt() {
 		$("#show").hide();
 		$.ajax({
@@ -106,11 +108,13 @@ $('#fast_upload').change(function(evt) {
 				var dname=f.path;
 				console.log(dname);
 					$("#cr_dir").html(`&nbsp;&nbsp;<button type='button' class='btn btn-primary' id="makedir" onclick="make_dir('${dname}')"><i class="mdi mdi-plus" style="font-size:18px;color:#ffffff"></i>New Folder</button>`);
-				if(f.status){
-
-                   $("#owner_nm").text(f.staffname);
+					
+					if(f.status){
+                   $(".staff_name").text(f.staffname);
 				   $("#cr_dt").text(f.cr_on);
-
+				   
+				   $(".owner_nm").text(f.com_name);
+                    var k=0
 					var htmldata="";
 					var htmldt="";
 					var htmlfile="";
@@ -128,11 +132,12 @@ $('#fast_upload').change(function(evt) {
                         // htmldata+=`<li style='list-style-type:none;color:#ff4f00;cursor:pointer;'><i class='mdi mdi-folder-plus'></i> <span onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})">${f.data.subdir[i].subdirectory}</span>
 						// <ul id='loadsub${k}'></ul>
 						// </li>`;
-						htmldt+=`<li class="col_div"><div href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
-						<ul id='loadsub1${k}'></ul></li>`;
+						htmldt+=`<li ><div class="col_div" href="#demo${k}" id="${k}" data-toggle="collapse" href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						<div id="demo${k}" class="collapse"><ul id='loadsub1${k}'></ul><div></li>`;
+						
 					}
-					// $("#loadsub"+id).html(htmldata);
-					// $("#loadsub1"+id).html(htmldt);
+					
+					$("#loadsub01").html(htmldt);
 					} 
 
 
@@ -208,11 +213,10 @@ $('#fast_upload').change(function(evt) {
 							</tr>`;
 						}
 					}
-					// $("#loadfile").html(htmlfile);
-				    console.log(htmlfile_nw);
+			
 					$("#fld_dt").html(htmlfile_nw);
-						// $("#loadfile").html("<h3 style='color:#ff4f00'>No files in this directory</h3>");
-
+					
+						
 					
 				}
 			}
@@ -270,18 +274,21 @@ $('#fast_upload').change(function(evt) {
 					var download_nw="";
 
 					$("#showpth").html(`${dname}`);
-					// if(f.data.subdircount>0){
-					// 	for(var i in f.data.subdir){
+					if(f.data.subdircount>0){
+						for(var i in f.data.subdir){
 					// 		k++;
                     //     // htmldata+=`<li style='list-style-type:none;color:#ff4f00;cursor:pointer;'><i class='mdi mdi-folder-plus'></i> <span onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})">${f.data.subdir[i].subdirectory}</span>
 					// 	// <ul id='loadsub${k}'></ul>
 					// 	// </li>`;
-					// 	htmldt+=`<li class="col_div"><div href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
-					// 	<ul id='loadsub1${k}'></ul></li>`;
-					// }
+					
+						// htmldt+=`<li class="col_div"><div href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						// <ul id='loadsub1${k}'></ul></li>`;
+						htmldt+=`<li ><div  class="col_div" href="#demo${id+1}" id="${id+1}" data-toggle="collapse" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${id+1})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						<div id="demo${id+1}" class="collapse"><ul id='loadsub1${id+1}'></ul><div></li>`;
+					}
 					// // $("#loadsub"+id).html(htmldata);
-					// $("#loadsub1"+id).html(htmldt);
-					// } 
+					$("#loadsub1"+id).html(htmldt);
+					} 
 
 
 					if(f.data.subdircount>0){
@@ -290,7 +297,6 @@ $('#fast_upload').change(function(evt) {
 						// 	let delete_fld=`<span " style="cursor:pointer;margin-right:10px;margin-bottom:10px; float:right; margin-left:auto;" onclick="DeleteFolder('${dname}/${f.data.subdir[i].subdirectory}','${id}')"><i class="mdi mdi-delete" style="font-size: 25px;color: #ec1313"></i> </span>`;
 						// 	htmlfile+=`<div class='col-4 mt-2'><div class='card' style="height:100px"><div class='card-body'><li style='list-style-type:none;color:#ff4f00;cursor:pointer; font-size:18px'><i class='mdi mdi-folder-open' style="font-size:40px"></i> <span onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})">${f.data.subdir[i].subdirectory}</span>
 						// <ul id='loadsub${k}'></ul></li>
-						
 						// </div></div></div>`;
 						var heading_nw1=`<a onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})" style="cursor:pointer">${f.data.subdir[i].subdirectory}</a>`;
 						htmlfile_nw+=`<tr>

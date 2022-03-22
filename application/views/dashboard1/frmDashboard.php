@@ -292,7 +292,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<tbody>
 							<tr>
 								<td class="inn_padding">Owner:</td>
-								<td class="inn_padding" ><a id='owner_nm'>Administrator</a></td>
+								<td class="inn_padding" ><a class='owner_nm'>Administrator</a></td>
 							</tr>
 							<tr>
 								<td class="inn_padding">Created:</td>
