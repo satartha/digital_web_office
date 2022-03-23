@@ -276,15 +276,17 @@ $('#fast_upload').change(function(evt) {
 					$("#showpth").html(`${dname}`);
 					if(f.data.subdircount>0){
 						for(var i in f.data.subdir){
-					// 		k++;
+							k++;
                     //     // htmldata+=`<li style='list-style-type:none;color:#ff4f00;cursor:pointer;'><i class='mdi mdi-folder-plus'></i> <span onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})">${f.data.subdir[i].subdirectory}</span>
 					// 	// <ul id='loadsub${k}'></ul>
 					// 	// </li>`;
 					
 						// htmldt+=`<li class="col_div"><div href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
 						// <ul id='loadsub1${k}'></ul></li>`;
-						htmldt+=`<li ><div  class="col_div" href="#demo${id+1}" id="${id+1}" data-toggle="collapse" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${id+1})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
-						<div id="demo${id+1}" class="collapse"><ul id='loadsub1${id+1}'></ul><div></li>`;
+						// htmldt+=`<li ><div  class="col_div" href="#demo${id+1}" id="${id+1}" data-toggle="collapse" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${id+1})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						// <div id="demo${id+1}" class="collapse"><ul id='loadsub1${id+1}'></ul><div></li>`;
+						htmldt+=`<li class="col_div"><div href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						<ul id='loadsub1${k}'></ul></li>`;
 					}
 					// // $("#loadsub"+id).html(htmldata);
 					$("#loadsub1"+id).html(htmldt);
@@ -338,35 +340,19 @@ $('#fast_upload').change(function(evt) {
 							<td>${download}</td>
 							</tr>`;
 						
-							// htmlfile+=`<div class="col-4 mt-2">
-					
-							// <div class="card" style="height:140px" onclick="getfile_dtl(${doc_r_id})">
-							               
-							// 				<div class="card-body" style="cursor:pointer;">
-							// 					<h4 style="color:#ff4f00">${ftype}&nbsp;&nbsp;${f.data.new_file[j].files.heading}</h4>
-							// 					<h3 class="float-right">${download}</h3>
-							// 				</div>
-											
-							// 			</div>
-							// </div>`;
 							
 						}
 					}else {
-						// if(htmlfile ==""){
-						// 	htmlfile="<h3 style='color:#ff4f00'>No files in this directory</h3>";
-							
-						// }
-						if (htmlfile_nw=="") 
-						{
-							htmlfile_nw+=`<tr>
-							<td colspan="4">No files in this directory</td>
-							</tr>`;
-						}
+				
 					}
 					// $("#loadfile").html(htmlfile);
 					$("#fld_dt").html(htmlfile_nw);
 						// $("#loadfile").html("<h3 style='color:#ff4f00'>No files in this directory</h3>");			
 				}else{
+					htmlfile_nw+=`<tr>
+							<td colspan="4">No files in this directory</td>
+							</tr>`;
+					$("#fld_dt").html(htmlfile_nw);
 					// $("#loadfile").html("<h3 style='color:#ff4f00'>No files in this directory</h3>");
 					$("#showpth").html(`${dname}`);
 				}

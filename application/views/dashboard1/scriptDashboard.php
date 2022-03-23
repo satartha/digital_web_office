@@ -190,8 +190,10 @@ $('#fast_upload').change(function(evt) {
                         // htmldata+=`<li style='list-style-type:none;color:#ff4f00;cursor:pointer;'><i class='mdi mdi-folder-plus'></i> <span onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})">${f.data.subdir[i].subdirectory}</span>
 						// <ul id='loadsub${k}'></ul>
 						// </li>`;
-						htmldt+=`<li style="cursor:pointer;"><div  class="col_div" href="#demo${id+1}" id="${id+1}" data-toggle="collapse" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${id+1})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
-						<div id="demo${id+1}" class="collapse"><ul id='loadsub1${id+1}'></ul><div></li>`;
+						// htmldt+=`<li style="cursor:pointer;"><div  class="col_div" href="#demo${k}" id="${k}" data-toggle="collapse" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						// <div id="demo${k}" class="collapse"><ul id='loadsub1${k}'></ul><div></li>`;
+						htmldt+=`<li tyle="cursor:pointer;"><div class="col_div" href="#demo${k}" id="${k}" href="#" onclick="getsubfolder('${dname}/${f.data.subdir[i].subdirectory}',${k})"><i class="mdi mdi-folder"></i> ${f.data.subdir[i].subdirectory}</div>
+						<ul id='loadsub1${k}'></ul></li>`;
 					}
 					// $("#loadsub"+id).html(htmldata);
 					$("#loadsub1"+id).html(htmldt);
@@ -260,23 +262,19 @@ $('#fast_upload').change(function(evt) {
 							// </div>`;
 							
 						}
-					}else {
-						// if(htmlfile ==""){
-						// 	htmlfile="<h3 style='color:#ff4f00'>No files in this directory</h3>";
-							
-						// }
-						if (htmlfile_nw=="") 
-						{
-							htmlfile_nw+=`<tr>
-							<td colspan="4">No files in this directory</td>
-							</tr>`;
-						}
 					}
+			
+
+			
 					// $("#loadfile").html(htmlfile);
 					$("#fld_dt").html(htmlfile_nw);
 						// $("#loadfile").html("<h3 style='color:#ff4f00'>No files in this directory</h3>");			
 				}else{
 					// $("#loadfile").html("<h3 style='color:#ff4f00'>No files in this directory</h3>");
+					htmlfile_nw+=`<tr>
+							<td colspan="4">No files in this directory</td>
+							</tr>`;
+					$("#fld_dt").html(htmlfile_nw);
 					$("#showpth").html(`${dname}`);
 				}
 			}
